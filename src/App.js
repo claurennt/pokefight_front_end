@@ -23,3 +23,6 @@ function App() {
 }
 
 export default App;
+
+
+// example icon use <span class="material-icons">face</span>
