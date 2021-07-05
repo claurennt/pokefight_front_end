@@ -23,17 +23,17 @@ const override = css`
 
 function App() {
   const [isFetching, setIsFetching] = useState(true);
-  const [pokemonList, setPokemon] = useState();
+  const [pokemonList, setPokemonList] = useState();
 
   const fetchData = useCallback(async () => {
     try {
       const retrievedPokemons = await axios.get(backendEntryPoint);
       setPokemon(retrievedPokemons.data);
       setIsFetching(false);
-    } catch (err) {
-      console.log(err.message);
-    }
-  }, []);
+      setPokemonList(data);
+    });
+    // fetchData();
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
