@@ -4,23 +4,27 @@ import axios from "axios";
 // import Navigation from "./Navigation";
 import Main from "./Main";
 
-const endpoint = `http://localhost:3001/1`;
+const endpoint = `http://localhost:3001/pokemon`;
 function App() {
   const [isFetching, setIsFetching] = useState(true);
-  const [pokemonList, setPokemon] = useState();
+  const [pokemonList, setPokemonList] = useState();
 
-  const fetchData = useCallback(async () => {
-    try {
-      const retrievedPokemon = await axios.get(endpoint);
-      setPokemon(retrievedPokemon.data);
-      setIsFetching(false);
-    } catch (err) {
-      console.log(err.message);
-    }
-  }, []);
+  // const fetchData = useCallback(async () => {
+  //   try {
+  //     const retrievedPokemon = await axios.get(endpoint);
+  //     setPokemon(retrievedPokemon.data);
+  //     setIsFetching(false);
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // }, []);
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    axios.get(endpoint).then(({ data }) => {
+      setIsFetching(false);
+      setPokemonList(data);
+    });
+    // fetchData();
+  }, []);
   return (
     <div className="container-fluid">
       {/* <Navigation></Navigation> */}
