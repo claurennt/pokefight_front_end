@@ -28,11 +28,12 @@ function App() {
   const fetchData = useCallback(async () => {
     try {
       const retrievedPokemons = await axios.get(backendEntryPoint);
-      setPokemon(retrievedPokemons.data);
+      setPokemonList(retrievedPokemons.data);
       setIsFetching(false);
-      setPokemonList(data);
-    });
-    // fetchData();
+    } catch (err) {
+      console.log(err.message);
+    }
+  }, []);
 
   useEffect(() => {
     fetchData();
