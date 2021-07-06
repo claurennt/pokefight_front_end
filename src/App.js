@@ -24,7 +24,7 @@ const override = css`
 function App() {
   const [isFetching, setIsFetching] = useState(true);
   const [pokemonList, setPokemonList] = useState();
-
+  const [contenders, setContenders] = useState();
   const fetchData = useCallback(async () => {
     try {
       const retrievedPokemons = await axios.get(backendEntryPoint);
@@ -58,6 +58,8 @@ function App() {
           <Main
             backendEntryPoint={backendEntryPoint}
             pokemonList={pokemonList}
+            setContenders={setContenders}
+            contenders={contenders}
           ></Main>
         )}
       </Container>
