@@ -6,14 +6,14 @@ import FadeLoader from "react-spinners/FadeLoader";
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
+
 import Container from "@material-ui/core/Container";
 
 import axios from "axios";
 
 import Main from "./Main";
 import Navigation from "./Navigation";
-const backendEntryPoint = `http://localhost:3001/pokemon`;
+const backendEntryPoint = `https://pokefight-group4.herokuapp.com/pokemon`;
 
 const override = css`
   display: block;
