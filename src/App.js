@@ -13,7 +13,7 @@ import axios from "axios";
 
 import Main from "./Main";
 import Navigation from "./Navigation";
-const backendEntryPoint = `https://pokefight-group4.herokuapp.com/pokemon`;
+const backendEntryPoint = `https://pokefight-group4.herokuapp.com/pokemon/`;
 
 const override = css`
   display: block;
