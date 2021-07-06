@@ -5,7 +5,12 @@ import FighterPreview from "./components/FighterPreview";
 
 // import FighterDetailed from "./src/components/FighterDetailed";
 import Fight from "./components/Fight";
-export default function Main({ pokemonList, backendEntryPoint }) {
+export default function Main({
+  pokemonList,
+  backendEntryPoint,
+  contenders,
+  setContenders,
+}) {
   return (
     <main>
       <Switch>
@@ -13,12 +18,12 @@ export default function Main({ pokemonList, backendEntryPoint }) {
           <ChooseFighter pokemonList={pokemonList} />
         </Route>
         <Route path="/fight/:id">
-          <Fight />
+          <Fight contenders={contenders} />
         </Route>
         <Route path="/:id">
           <FighterPreview
             backendEntryPoint={backendEntryPoint}
-            pokemonList={pokemonList}
+            setContenders={setContenders}
           />
         </Route>
 
