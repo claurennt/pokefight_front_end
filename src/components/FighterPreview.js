@@ -64,7 +64,18 @@ export default function FighterPreview({
   };
   return (
     <div>
-      <Button onClick={handleClick}>FIGHT !</Button>;
+      <Button
+        onClick={handleClick}
+        variant="contained"
+        color="primary"
+        style={{ "margin-left": "70px" }}
+      >
+        FIGHT !
+      </Button>
+
+      {/* <Button variant="contained" color="primary" href="#contained-buttons">
+        Link
+      </Button> */}
       <div className={classes.root}>
         <Fade in="true">
           <Paper elevation={20}>
