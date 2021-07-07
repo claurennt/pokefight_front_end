@@ -14,13 +14,13 @@ export default function Main({
   return (
     <main>
       <Switch>
-        <Route exact path="./">
+        <Route exact path="/">
           <ChooseFighter pokemonList={pokemonList} />
         </Route>
-        <Route path="./fight/">
+        <Route path="/fight/">
           <Fight contenders={contenders} />
         </Route>
-        <Route path="./:id">
+        <Route path="/:id">
           <FighterPreview
             backendEntryPoint={backendEntryPoint}
             setContenders={setContenders}
