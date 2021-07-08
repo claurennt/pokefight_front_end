@@ -1,4 +1,6 @@
-export default function Fight({ contenders }) {
+export default function Fight({ contenders, fightResult, determineWinner }) {
   console.log(contenders);
-  return <h1>You lost!</h1>;
+  determineWinner(contenders);
+
+  return <h1>{fightResult && fightResult}</h1>;
 }

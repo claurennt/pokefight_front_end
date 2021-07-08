@@ -117,7 +117,7 @@ export default function FighterPreview({
               <Typography variant="p" component="p">
                 {opponentPokemon && (
                   <>
-                    <ul style={{ "list-style-type": "none" }}>
+                    <ul style={{ listStyleType: "none" }}>
                       <li>
                         <h3>Name: {opponentPokemon.name.english} </h3>
                         <h4>Type: {opponentPokemon.type[0]} </h4>
