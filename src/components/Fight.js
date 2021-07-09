@@ -7,7 +7,7 @@ import determineWinner from "../utils/determineWinner";
 import styles from "../css/styles.module.css";
 
 export default function Fight({ open }) {
-  const [ref, { width }] = useMeasure();
+  const [ref] = useMeasure();
 
   const location = useLocation();
   const { state } = location;
