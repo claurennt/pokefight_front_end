@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FighterPreview({ backendEntryPoint, open, toggle }) {
+export default function FighterPreview({ backendEntryPoint }) {
   let history = useHistory();
   const { id } = useParams();
 
   const [playerPokemon, setPlayerPokemon] = useState();
   const [opponentPokemon, setOpponentPokemon] = useState();
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-  // const [open, toggle] = useState(false);
+  const [open, toggle] = useState(false);
   // const { player, opponent } = contenders;
 
   const fetchData = useCallback(async () => {
