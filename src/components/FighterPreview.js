@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FighterPreview({ backendEntryPoint }) {
+export default function FighterPreview({ backendEntryPoint, open, toggle }) {
   let history = useHistory();
   const { id } = useParams();
 
   const [playerPokemon, setPlayerPokemon] = useState();
   const [opponentPokemon, setOpponentPokemon] = useState();
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-  const [contenders, setContenders] = useState();
+  // const [open, toggle] = useState(false);
   // const { player, opponent } = contenders;
 
   const fetchData = useCallback(async () => {
@@ -53,15 +53,20 @@ export default function FighterPreview({ backendEntryPoint }) {
 
   const handleClick = (e) => {
     e.preventDefault();
-
+    toggle(true);
     setSelectionConfirmed(true);
 
     setTimeout(() => {
-      history.push(`/fight/`, {
-        pokemon: playerPokemon,
-        opponent: opponentPokemon,
-      });
-    }, 4000);
+      history.push(
+        `/fight/`,
+        {
+          pokemon: playerPokemon,
+          opponent: opponentPokemon,
+          open: open,
+        },
+        4000
+      );
+    });
   };
   return (
     <div>

@@ -1,60 +1,39 @@
 import { useLocation } from "react-router-dom";
-export default function Fight() {
+import Box from "@material-ui/core/Box";
+
+import useMeasure from "react-use-measure";
+import { useSpring, animated } from "@react-spring/web";
+import determineWinner from "../utils/determineWinner";
+import styles from "../css/styles.module.css";
+
+export default function Fight({ open }) {
+  const [ref, { width }] = useMeasure();
+
   const location = useLocation();
   const { state } = location;
   const { pokemon, opponent } = state;
 
-  const determineWinner = (pokemon, opponent) => {
-    let powerPokemon = Math.floor(
-      (pokemon.base.HP +
-        pokemon.base.Attack +
-        pokemon.base.Defense +
-        pokemon.base.Speed) *
-        Math.random()
-    );
+  const { loser, winner } = determineWinner(pokemon, opponent);
 
-    let powerOpponent = Math.floor(
-      (opponent.base.HP +
-        opponent.base.Attack +
-        opponent.base.Defense +
-        opponent.base.Speed) *
-        Math.random()
-    );
+  const winnerWidth = useSpring({ width: open ? winner.score : 0 });
+  const loserWidth = useSpring({ width: open ? loser.score : 0 });
 
-    let winnerPlayerScore = Math.max(powerPokemon, powerOpponent);
-
-    return winnerPlayerScore === powerPokemon
-      ? { ...pokemon, score: winnerPlayerScore }
-      : { ...opponent, score: winnerPlayerScore };
-  };
-  // const { player, opponent } = contenders;
-  // const [loser, setLoser] = useState();
-  // const [winner, setWinner] = useState();
-
-  // const determineWinner = (player, opponent) => {
-  //   let powerplayer =
-  //     (player.base.HP +
-  //       player.base.Attack +
-  //       player.base.Defense +
-  //       player.base.Speed) *
-  //     Math.random();
-  //   let poweropponent =
-  //     (opponent.base.HP +
-  //       opponent.base.Attack +
-  //       opponent.base.Defense +
-  //       opponent.base.Speed) *
-  //     Math.random();
-
-  //   setWinner(Math.max(powerplayer, poweropponent));
-  //   setLoser(Math.min(powerplayer, poweropponent));
-  // };
-
-  // console.log(winner);
-  // determineWinner(player, opponent);
-  const winner = determineWinner(pokemon, opponent);
-  console.log(winner);
   return (
-    <>
+    <Box display="flex" flexDirection="column">
+      <div className={styles.container}>
+        <div ref={ref} className={styles.main}>
+          <animated.div className={styles.fill} style={winnerWidth} />
+          <animated.div className={styles.content}>
+            {winnerWidth.width.to((x) => x.toFixed(0))}
+          </animated.div>
+        </div>
+        <div ref={ref} className={styles.main}>
+          <animated.div className={styles.fill} style={loserWidth} />
+          <animated.div className={styles.content}>
+            {loserWidth.width.to((x) => x.toFixed(0))}
+          </animated.div>
+        </div>
+      </div>
       <div>
         <h1>
           {winner.name.english} won with this score: {winner.score}!
@@ -62,12 +41,12 @@ export default function Fight() {
 
         <img src={winner.image} alt="" />
       </div>
-      {/* <div>
+      <div>
         <h1>You Lost!</h1>
-        <p>Score:{loser}</p>
-        <img src={pokemon.image} alt="" />
-      </div> */}
-    </>
+        <p>Score:{loser.score}</p>
+        <img src={loser.image} alt="" />
+      </div>
+    </Box>
   );
   /* <img src={winner.image} alt="winner pokemon image" />*/
 }
