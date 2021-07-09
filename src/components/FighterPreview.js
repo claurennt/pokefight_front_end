@@ -20,15 +20,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+<<<<<<< HEAD
 export default function FighterPreview({ backendEntryPoint, open, toggle }) {
+=======
+export default function FighterPreview({
+  backendEntryPoint,
+  contenders,
+  setContenders,
+}) {
+>>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
   let history = useHistory();
   const { id } = useParams();
 
   const [playerPokemon, setPlayerPokemon] = useState();
   const [opponentPokemon, setOpponentPokemon] = useState();
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
+<<<<<<< HEAD
   // const [open, toggle] = useState(false);
   // const { player, opponent } = contenders;
+=======
+>>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
 
   const fetchData = useCallback(async () => {
     try {
@@ -49,14 +60,19 @@ export default function FighterPreview({ backendEntryPoint, open, toggle }) {
     fetchData();
   }, [fetchData]);
 
+  console.log(playerPokemon, opponentPokemon);
   const classes = useStyles();
 
   const handleClick = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     toggle(true);
+=======
+>>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
     setSelectionConfirmed(true);
-
+    setContenders([playerPokemon, opponentPokemon]);
     setTimeout(() => {
+<<<<<<< HEAD
       history.push(
         `/fight/`,
         {
@@ -67,6 +83,10 @@ export default function FighterPreview({ backendEntryPoint, open, toggle }) {
         4000
       );
     });
+=======
+      history.push(`/fight/${id}`);
+    }, 4000);
+>>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
   };
   return (
     <div>

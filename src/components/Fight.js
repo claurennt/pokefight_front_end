@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useLocation } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 
@@ -49,4 +50,11 @@ export default function Fight({ open }) {
     </Box>
   );
   /* <img src={winner.image} alt="winner pokemon image" />*/
+=======
+export default function Fight({ contenders, fightResult, determineWinner }) {
+  console.log(contenders);
+  determineWinner(contenders);
+
+  return <h1>{fightResult && fightResult}</h1>;
+>>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
 }
