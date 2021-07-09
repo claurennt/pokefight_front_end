@@ -3,7 +3,7 @@ import Box from "@material-ui/core/Box";
 
 import useMeasure from "react-use-measure";
 import { useSpring, animated } from "@react-spring/web";
-import determineWinner from "../utils/determineWinner";
+
 import styles from "../css/styles.module.css";
 
 export default function Fight({ open }) {
@@ -12,6 +12,38 @@ export default function Fight({ open }) {
   const location = useLocation();
   const { state } = location;
   const { pokemon, opponent } = state;
+  const determineWinner = (pokemon, opponent) => {
+    const powerPokemon = Math.floor(
+      (pokemon.base.HP +
+        pokemon.base.Attack +
+        pokemon.base.Defense +
+        pokemon.base.Speed) *
+        Math.random()
+    );
+
+    const powerOpponent = Math.floor(
+      (opponent.base.HP +
+        opponent.base.Attack +
+        opponent.base.Defense +
+        opponent.base.Speed) *
+        Math.random()
+    );
+
+    const winnerPlayerScore = Math.max(powerPokemon, powerOpponent);
+    const loserPlayerScore = Math.min(powerPokemon, powerOpponent);
+
+    const winnerPlayer =
+      winnerPlayerScore === powerPokemon
+        ? { ...pokemon, score: winnerPlayerScore }
+        : { ...opponent, score: winnerPlayerScore };
+
+    const loserPlayer =
+      loserPlayerScore === powerPokemon
+        ? { ...pokemon, score: loserPlayerScore }
+        : { ...opponent, score: loserPlayerScore };
+
+    return { loser: loserPlayer, winner: winnerPlayer };
+  };
 
   const { loser, winner } = determineWinner(pokemon, opponent);
 
