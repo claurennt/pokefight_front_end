@@ -12,6 +12,10 @@ export default function Main({
   setContenders,
   fightResult,
   determineWinner,
+  winner,
+  loser,
+  opponentPokemon,
+  playerPokemon,
 }) {
   return (
     <main>
@@ -24,13 +28,12 @@ export default function Main({
             contenders={contenders}
             fightResult={fightResult}
             determineWinner={determineWinner}
+            opponentPokemon={opponentPokemon}
+            playerPokemon={playerPokemon}
           />
         </Route>
         <Route path="/:id">
-          <FighterPreview
-            backendEntryPoint={backendEntryPoint}
-            setContenders={setContenders}
-          />
+          <FighterPreview backendEntryPoint={backendEntryPoint} />
         </Route>
 
         <Route path="/:id/:info">{/* <FighterDetailed /> */}</Route>
