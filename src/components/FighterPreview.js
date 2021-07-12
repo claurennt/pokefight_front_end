@@ -59,16 +59,12 @@ export default function FighterPreview({ backendEntryPoint }) {
     setSelectionConfirmed(true);
     // setContenders([playerPokemon, opponentPokemon]);
     setTimeout(() => {
-      history.push(
-        `/fight/`,
-        {
-          pokemon: playerPokemon,
-          opponent: opponentPokemon,
-          open: open,
-        },
-        4000
-      );
-    });
+      history.push(`/fight/`, {
+        pokemon: playerPokemon,
+        opponent: opponentPokemon,
+        open: open,
+      });
+    }, 4000);
   };
   return (
     <div>
