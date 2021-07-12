@@ -56,6 +56,9 @@ export default function Fight(open) {
 
   return (
     <Box display="flex" flexDirection="column">
+      <h1>
+        {winner.name.english} won with this score: {winner.score}!
+      </h1>
       <div className={styles.container}>
         <div ref={ref} className={styles.main}>
           <animated.div className={styles.fill} style={winnerWidth} />
@@ -63,24 +66,25 @@ export default function Fight(open) {
             {winnerWidth.width.to((x) => x.toFixed(0))}
           </animated.div>
         </div>
+        <div>
+          <img src={winner.image} alt="" width="300px" height="300px" />
+        </div>
+      </div>
+
+      <div>
+        <h1>You Lost!</h1>
+        <p>Score:{loser.score}</p>
+      </div>
+      <div className={styles.container}>
         <div ref={ref} className={styles.main}>
           <animated.div className={styles.fill} style={loserWidth} />
           <animated.div className={styles.content}>
             {loserWidth.width.to((x) => x.toFixed(0))}
           </animated.div>
         </div>
-      </div>
-      <div>
-        <h1>
-          {winner.name.english} won with this score: {winner.score}!
-        </h1>
-
-        <img src={winner.image} alt="" />
-      </div>
-      <div>
-        <h1>You Lost!</h1>
-        <p>Score:{loser.score}</p>
-        <img src={loser.image} alt="" />
+        <div>
+          <img src={loser.image} alt="" width="150px" height="150px" />
+        </div>
       </div>
     </Box>
   );
