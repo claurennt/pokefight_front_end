@@ -8,6 +8,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import React from "react";
+import BackspaceIcon from "@material-ui/icons/Backspace";
+
+import fight from "../assets/Fight.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +55,9 @@ export default function FighterPreview({ backendEntryPoint }) {
 
   console.log(playerPokemon, opponentPokemon);
   const classes = useStyles();
+  const handleBack = (e) => {
+    history.push("/");
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -64,22 +70,27 @@ export default function FighterPreview({ backendEntryPoint }) {
         opponent: opponentPokemon,
         open: open,
       });
-    }, 4000);
+    }, 1250);
   };
   return (
     <div>
-      <Button
-        onClick={handleClick}
-        variant="contained"
-        color="primary"
-        style={{ "margin-left": "70px" }}
-      >
-        FIGHT !
-      </Button>
-
       {/* <Button variant="contained" color="primary" href="#contained-buttons">
         Link
       </Button> */}
+      {!selectionConfirmed && (
+        <>
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            color="primary"
+            style={{ "margin-left": "25px" }}
+            size="large"
+          >
+            <BackspaceIcon style={{ "margin-right": "10px" }} />
+            Back to overview
+          </Button>
+        </>
+      )}
       <div className={classes.root}>
         <Fade in="true">
           <Paper elevation={20}>
@@ -106,6 +117,20 @@ export default function FighterPreview({ backendEntryPoint }) {
                   <li>Special Attack : {playerPokemon.base["Sp. Attack"]}</li>
                   <li>Special Defense : {playerPokemon.base["Sp. Attack"]}</li>
                   <li>Speed : {playerPokemon.base.Speed}</li>
+                  <li>
+                    {" "}
+                    {!selectionConfirmed && (
+                      <Button
+                        onClick={handleClick}
+                        variant="contained"
+                        color="primary"
+                        style={{ "margin-top": "10px" }}
+                        size="large"
+                      >
+                        <img src={fight} alt="pokeball" width="75px" />
+                      </Button>
+                    )}
+                  </li>
                 </ul>
               )}
             </Typography>
