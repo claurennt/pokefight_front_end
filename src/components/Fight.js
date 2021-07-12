@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import React from "react";
 import useMeasure from "react-use-measure";
@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Fight(open) {
+  let history = useHistory();
   const classes = useStyles();
 
   // const [ref, { width }] = useMeasure();
@@ -80,6 +81,7 @@ export default function Fight(open) {
     } catch (err) {
       console.log(err.message);
     }
+    history.push("/");
   };
   return (
     <>
