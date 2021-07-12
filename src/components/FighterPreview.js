@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
+import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,26 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-<<<<<<< HEAD
-export default function FighterPreview({ backendEntryPoint, open, toggle }) {
-=======
-export default function FighterPreview({
-  backendEntryPoint,
-  contenders,
-  setContenders,
-}) {
->>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
+export default function FighterPreview({ backendEntryPoint }) {
   let history = useHistory();
   const { id } = useParams();
 
   const [playerPokemon, setPlayerPokemon] = useState();
   const [opponentPokemon, setOpponentPokemon] = useState();
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
-<<<<<<< HEAD
-  // const [open, toggle] = useState(false);
+  const [open, toggle] = useState(false);
   // const { player, opponent } = contenders;
-=======
->>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
 
   const fetchData = useCallback(async () => {
     try {
@@ -65,14 +55,10 @@ export default function FighterPreview({
 
   const handleClick = (e) => {
     e.preventDefault();
-<<<<<<< HEAD
     toggle(true);
-=======
->>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
     setSelectionConfirmed(true);
-    setContenders([playerPokemon, opponentPokemon]);
+    // setContenders([playerPokemon, opponentPokemon]);
     setTimeout(() => {
-<<<<<<< HEAD
       history.push(
         `/fight/`,
         {
@@ -83,10 +69,6 @@ export default function FighterPreview({
         4000
       );
     });
-=======
-      history.push(`/fight/${id}`);
-    }, 4000);
->>>>>>> parent of 66a84e5 (refactor and move states and functions, display winner)
   };
   return (
     <div>
@@ -107,32 +89,28 @@ export default function FighterPreview({
           <Paper elevation={20}>
             <Typography variant="p" component="p">
               {playerPokemon && (
-                <>
-                  <ul style={{ listStyleType: "none" }}>
-                    <li>
-                      <h3>Name: {playerPokemon.name.english} </h3>
-                      <h4>Type: {playerPokemon.type[0]} </h4>
-                    </li>
-                    <li>
-                      {" "}
-                      <img
-                        src={playerPokemon.image}
-                        alt={playerPokemon.title}
-                        width="60%"
-                      />
-                      <br />
-                      <br />
-                    </li>
-                    <li>Attack : {playerPokemon.base.Attack}</li>
-                    <li>Defense : {playerPokemon.base.Defense}</li>
-                    <li>Hit Points : {playerPokemon.base.HP}</li>
-                    <li>Special Attack : {playerPokemon.base["Sp. Attack"]}</li>
-                    <li>
-                      Special Defense : {playerPokemon.base["Sp. Attack"]}
-                    </li>
-                    <li>Speed : {playerPokemon.base.Speed}</li>
-                  </ul>
-                </>
+                <ul style={{ listStyleType: "none" }}>
+                  <li>
+                    <h3>Name: {playerPokemon.name.english} </h3>
+                    <h4>Type: {playerPokemon.type[0]} </h4>
+                  </li>
+                  <li>
+                    {" "}
+                    <img
+                      src={playerPokemon.image}
+                      alt={playerPokemon.title}
+                      width="60%"
+                    />
+                    <br />
+                    <br />
+                  </li>
+                  <li>Attack : {playerPokemon.base.Attack}</li>
+                  <li>Defense : {playerPokemon.base.Defense}</li>
+                  <li>Hit Points : {playerPokemon.base.HP}</li>
+                  <li>Special Attack : {playerPokemon.base["Sp. Attack"]}</li>
+                  <li>Special Defense : {playerPokemon.base["Sp. Attack"]}</li>
+                  <li>Speed : {playerPokemon.base.Speed}</li>
+                </ul>
               )}
             </Typography>
           </Paper>
@@ -142,34 +120,32 @@ export default function FighterPreview({
             <Paper elevation={20}>
               <Typography variant="p" component="p">
                 {opponentPokemon && (
-                  <>
-                    <ul style={{ listStyleType: "none" }}>
-                      <li>
-                        <h3>Name: {opponentPokemon.name.english} </h3>
-                        <h4>Type: {opponentPokemon.type[0]} </h4>
-                      </li>
-                      <li>
-                        {" "}
-                        <img
-                          src={opponentPokemon.image}
-                          alt={opponentPokemon.title}
-                          width="60%"
-                        />
-                        <br />
-                        <br />
-                      </li>
-                      <li>Attack : {opponentPokemon.base.Attack}</li>
-                      <li>Defense : {opponentPokemon.base.Defense}</li>
-                      <li>Hit Points : {opponentPokemon.base.HP}</li>
-                      <li>
-                        Special Attack : {opponentPokemon.base["Sp. Attack"]}
-                      </li>
-                      <li>
-                        Special Defense : {opponentPokemon.base["Sp. Attack"]}
-                      </li>
-                      <li>Speed : {opponentPokemon.base.Speed}</li>
-                    </ul>
-                  </>
+                  <ul style={{ listStyleType: "none" }}>
+                    <li>
+                      <h3>Name: {opponentPokemon.name.english} </h3>
+                      <h4>Type: {opponentPokemon.type[0]} </h4>
+                    </li>
+                    <li>
+                      {" "}
+                      <img
+                        src={opponentPokemon.image}
+                        alt={opponentPokemon.title}
+                        width="60%"
+                      />
+                      <br />
+                      <br />
+                    </li>
+                    <li>Attack : {opponentPokemon.base.Attack}</li>
+                    <li>Defense : {opponentPokemon.base.Defense}</li>
+                    <li>Hit Points : {opponentPokemon.base.HP}</li>
+                    <li>
+                      Special Attack : {opponentPokemon.base["Sp. Attack"]}
+                    </li>
+                    <li>
+                      Special Defense : {opponentPokemon.base["Sp. Attack"]}
+                    </li>
+                    <li>Speed : {opponentPokemon.base.Speed}</li>
+                  </ul>
                 )}
               </Typography>
             </Paper>

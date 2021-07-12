@@ -2,7 +2,7 @@ import "./css/App.css";
 import { useState, useCallback, useEffect, Fragment } from "react";
 import { css } from "@emotion/react";
 import FadeLoader from "react-spinners/FadeLoader";
-
+import React from "react";
 // Can be a string as well. Need to ensure each key-value pair ends with ;
 
 import CssBaseline from "@material-ui/core/CssBaseline";
