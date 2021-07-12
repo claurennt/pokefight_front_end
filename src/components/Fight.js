@@ -2,11 +2,12 @@ import { useLocation } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import React from "react";
 import useMeasure from "react-use-measure";
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated } from "react-spring";
 
 import styles from "../css/styles.module.css";
 
-export default function Fight({ open }) {
+export default function Fight(open) {
+  console.log(open);
   // const [ref, { width }] = useMeasure();
 
   const location = useLocation();
