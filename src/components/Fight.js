@@ -3,11 +3,22 @@ import Box from "@material-ui/core/Box";
 import React from "react";
 import useMeasure from "react-use-measure";
 import { useSpring, animated } from "react-spring";
-
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import axios from "axios";
 import styles from "../css/styles.module.css";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+}));
+
 export default function Fight(open) {
-  console.log(open);
+  const classes = useStyles();
+
   // const [ref, { width }] = useMeasure();
 
   const location = useLocation();
@@ -50,43 +61,66 @@ export default function Fight(open) {
   };
 
   const { loser, winner } = determineWinner(pokemon, opponent);
-
+  console.log(loser);
   const winnerWidth = useSpring({ width: open ? winner.score : 0 });
   const loserWidth = useSpring({ width: open ? loser.score : 0 });
-
+  const handleSubmit = async () => {
+    const gameResult = {
+      nameFighterOne: pokemon.name.english,
+      nameFighterTwo: opponent.name.english,
+      winner: winner.name.english,
+    };
+    console.log(gameResult);
+    try {
+      await axios({
+        method: "post",
+        url: "https://pokefight-group4.herokuapp.com/pokemon/game/save",
+        data: gameResult,
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   return (
-    <Box display="flex" flexDirection="column">
-      <h1>
-        {winner.name.english} won with this score: {winner.score}!
-      </h1>
-      <div className={styles.container}>
-        <div ref={ref} className={styles.main}>
-          <animated.div className={styles.fill} style={winnerWidth} />
-          <animated.div className={styles.content}>
-            {winnerWidth.width.to((x) => x.toFixed(0))}
-          </animated.div>
-        </div>
-        <div>
-          <img src={winner.image} alt="" width="300px" height="300px" />
-        </div>
+    <>
+      <div className={classes.root}>
+        <Button variant="contained" onClick={handleSubmit}>
+          Submit
+        </Button>
       </div>
+      <Box display="flex" flexDirection="column">
+        <h1>
+          {winner.name.english} won with this score: {winner.score}!
+        </h1>
+        <div className={styles.container}>
+          <div ref={ref} className={styles.main}>
+            <animated.div className={styles.fill} style={winnerWidth} />
+            <animated.div className={styles.content}>
+              {winnerWidth.width.to((x) => x.toFixed(0))}
+            </animated.div>
+          </div>
+          <div>
+            <img src={winner.image} alt="" width="300px" height="300px" />
+          </div>
+        </div>
 
-      <div>
-        <h1>You Lost!</h1>
-        <p>Score:{loser.score}</p>
-      </div>
-      <div className={styles.container}>
-        <div ref={ref} className={styles.main}>
-          <animated.div className={styles.fill} style={loserWidth} />
-          <animated.div className={styles.content}>
-            {loserWidth.width.to((x) => x.toFixed(0))}
-          </animated.div>
-        </div>
         <div>
-          <img src={loser.image} alt="" width="150px" height="150px" />
+          <h1>You Lost!</h1>
+          <p>Score:{loser.score}</p>
         </div>
-      </div>
-    </Box>
+        <div className={styles.container}>
+          <div ref={ref} className={styles.main}>
+            <animated.div className={styles.fill} style={loserWidth} />
+            <animated.div className={styles.content}>
+              {loserWidth.width.to((x) => x.toFixed(0))}
+            </animated.div>
+          </div>
+          <div>
+            <img src={loser.image} alt="" width="150px" height="150px" />
+          </div>
+        </div>
+      </Box>
+    </>
   );
   /* <img src={winner.image} alt="winner pokemon image" />*/
 }
