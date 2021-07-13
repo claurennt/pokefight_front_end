@@ -28,9 +28,9 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export default function Leaderboard() {
-  function createUniqueContender(winner) {
-    return winner;
+export default function History() {
+  function createData(nameFighterOne, nameFighterTwo, winner) {
+    return { nameFighterOne, nameFighterTwo, winner };
   }
 
   const useStyles = makeStyles({
@@ -39,36 +39,20 @@ export default function Leaderboard() {
     },
   });
   const [leaderboard, setLeaderboard] = useState();
-  const [statsState, setStatsState] = useState();
-  const [fightsState, setFightsState] = useState();
   const [isFetching, setIsFetching] = useState(true);
-  const fightsOnePokemonWasInvolvedIn = (name) => {
-    return fightsState.filter((element) => element === name).length;
-  };
   const fetchData = useCallback(async () => {
     try {
       const retrieveLeaderboard = await axios.get(
         `https://pokefight-group4.herokuapp.com/pokemon/game/leaderboard `
       );
-      let stats = {};
-      let fights = [];
-      let everyApperance = [];
-
+      let rows = [];
       //console.log(retrieveLeaderboard.data);
       for (let fight of retrieveLeaderboard.data) {
-        fights.unshift(createUniqueContender(fight.winner));
-        stats[fight.winner] ? stats[fight.winner]++ : (stats[fight.winner] = 1);
-        everyApperance.push(fight.nameFighterOne, fight.nameFighterTwo);
+        rows.unshift(
+          createData(fight.nameFighterOne, fight.nameFighterTwo, fight.winner)
+        );
       }
-
-      let contenders = [...new Set(fights)].sort(function compareNumbers(a, b) {
-        return stats[b] - stats[a];
-      });
-
-      //console.log(fights.filter((element) => element === "Meltan").length);
-      setLeaderboard(contenders);
-      setStatsState(stats);
-      setFightsState(everyApperance);
+      setLeaderboard(rows);
       setIsFetching(false);
     } catch (err) {
       console.log(err.message);
@@ -79,15 +63,14 @@ export default function Leaderboard() {
   }, [fetchData]);
 
   const classes = useStyles();
-
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Pokemon</StyledTableCell>
-            <StyledTableCell align="center">Victories</StyledTableCell>
-            <StyledTableCell align="right">Win Rate</StyledTableCell>
+            <StyledTableCell>User selection</StyledTableCell>
+            <StyledTableCell align="center">Opponent</StyledTableCell>
+            <StyledTableCell align="right">Winner</StyledTableCell>
           </TableRow>
         </TableHead>
         {!isFetching && (
@@ -95,17 +78,12 @@ export default function Leaderboard() {
             {leaderboard.map((row, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell component="th" scope="row">
-                  {row}
+                  {row.nameFighterOne}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {statsState[row]}
+                  {row.nameFighterTwo}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  {Math.round(
-                    (statsState[row] / fightsOnePokemonWasInvolvedIn(row)) * 100
-                  )}
-                  %
-                </StyledTableCell>
+                <StyledTableCell align="right">{row.winner}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
