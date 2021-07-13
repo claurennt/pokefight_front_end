@@ -97,8 +97,23 @@ export default function ChooseFighter({ pokemonList }) {
             </ImageListItem>
             {pokemonList.map((pokemon) => (
               <ImageListItem key={pokemon.id}>
-                <NavLink to={`/${pokemon.id}`}>
-                  <img src={pokemon.image} alt={pokemon.title} />
+                <NavLink
+                  to={`/${pokemon.id}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <img
+                    src={pokemon.image}
+                    alt={pokemon.title}
+                    style={{
+                      height: "250px",
+                      maxWidth: "250px",
+                      margin: "auto",
+                    }}
+                  />
                   <ImageListItemBar
                     title={pokemon.name.english}
                     subtitle={
