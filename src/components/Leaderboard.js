@@ -46,7 +46,7 @@ export default function Leaderboard() {
         `https://pokefight-group4.herokuapp.com/pokemon/game/leaderboard `
       );
       let rows = [];
-      console.log(retrieveLeaderboard.data);
+      //console.log(retrieveLeaderboard.data);
       for (let fight of retrieveLeaderboard.data) {
         rows.unshift(
           createData(fight.nameFighterOne, fight.nameFighterTwo, fight.winner)

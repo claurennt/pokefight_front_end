@@ -28,7 +28,7 @@ export default function Fight(open) {
   // const [ref, { width }] = useMeasure();
 
   const location = useLocation();
-  console.log(location);
+  //console.log(location);
   const { state } = location;
   const { pokemon, opponent, random1, random2 } = state;
   const [ref] = useMeasure();
@@ -72,8 +72,7 @@ export default function Fight(open) {
     random1,
     random2
   );
-  console.log(loser);
-  console.log(winner);
+
   const winnerWidth = useSpring({ width: open ? winner.score : 0 });
   const loserWidth = useSpring({ width: open ? loser.score : 0 });
   const handleSubmit = async () => {
@@ -82,7 +81,7 @@ export default function Fight(open) {
       nameFighterTwo: opponent.name.english,
       winner: winner.name.english,
     };
-    console.log(gameResult);
+    //console.log(gameResult);
     try {
       await axios({
         method: "post",

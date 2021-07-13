@@ -12,7 +12,7 @@ import Container from "@material-ui/core/Container";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
+
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +46,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -75,71 +75,69 @@ export default function ChooseFighter({ pokemonList }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="simple tabs example"
-          >
-            <Tab label="Select Pokemon" {...a11yProps(0)} />
-            <Tab label="Show Leaderboard" {...a11yProps(1)} />
-          </Tabs>
-        </AppBar>
-        <TabPanel value={value} index={0}>
-          <ImageList
-            cellHeight={250}
-            className={classes.ImageList}
-            style={{ overflow: "auto" }}
-          >
-            <ImageListItem key="Subheader" cols={2} style={{ height: "auto" }}>
-              <ListSubheader component="div"></ListSubheader>
-            </ImageListItem>
-            {pokemonList.map((pokemon) => (
-              <ImageListItem key={pokemon.id}>
-                <NavLink
-                  to={`/${pokemon.id}`}
+      <AppBar position="static">
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="simple tabs example"
+        >
+          <Tab label="Select Pokemon" {...a11yProps(0)} />
+          <Tab label="Show Leaderboard" {...a11yProps(1)} />
+        </Tabs>
+      </AppBar>
+      <TabPanel value={value} index={0}>
+        <ImageList
+          rowHeight={250}
+          className={classes.ImageList}
+          style={{ overflow: "auto" }}
+        >
+          <ImageListItem key="Subheader" cols={2} style={{ height: "auto" }}>
+            <ListSubheader component="div"></ListSubheader>
+          </ImageListItem>
+          {pokemonList.map((pokemon) => (
+            <ImageListItem key={pokemon.id}>
+              <NavLink
+                to={`/${pokemon.id}`}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
+              >
+                <img
+                  src={pokemon.image}
+                  alt={pokemon.title}
                   style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
+                    height: "250px",
+                    maxWidth: "250px",
+                    margin: "auto",
                   }}
-                >
-                  <img
-                    src={pokemon.image}
-                    alt={pokemon.title}
-                    style={{
-                      height: "250px",
-                      maxWidth: "250px",
-                      margin: "auto",
-                    }}
-                  />
-                  <ImageListItemBar
-                    title={pokemon.name.english}
-                    subtitle={
-                      <span>
-                        attack: {pokemon.base.Attack} defense:{" "}
-                        {pokemon.base.Defense}
-                      </span>
-                    }
-                    actionIcon={
-                      <IconButton
-                        aria-label={`info about ${pokemon.name.english}`}
-                        className={classes.icon}
-                      ></IconButton>
-                    }
-                  />
-                </NavLink>
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <Container fixed>
-            <Leaderboard />
-          </Container>
-        </TabPanel>
-      </div>
+                />
+                <ImageListItemBar
+                  title={pokemon.name.english}
+                  subtitle={
+                    <div>
+                      attack: {pokemon.base.Attack} defense:{" "}
+                      {pokemon.base.Defense}
+                    </div>
+                  }
+                  actionIcon={
+                    <IconButton
+                      aria-label={`info about ${pokemon.name.english}`}
+                      className={classes.icon}
+                    ></IconButton>
+                  }
+                />
+              </NavLink>
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <Container fixed>
+          <Leaderboard />
+        </Container>
+      </TabPanel>
     </div>
   );
 }

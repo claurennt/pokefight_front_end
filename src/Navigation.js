@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navigation() {
-  console.log(pic);
+  //console.log(pic);
   const classes = useStyles();
   return (
     <NavLink to="/">
