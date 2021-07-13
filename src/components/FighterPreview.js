@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import React from "react";
