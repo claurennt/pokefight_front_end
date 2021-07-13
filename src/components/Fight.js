@@ -7,6 +7,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import styles from "../css/styles.module.css";
+import { FallingEmojis } from "falling-emojis";
+import Confetti from "react-confetti";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Fight(open) {
   let history = useHistory();
+
   const classes = useStyles();
 
   // const [ref, { width }] = useMeasure();
@@ -85,6 +88,21 @@ export default function Fight(open) {
   };
   return (
     <>
+      {winner.name.english === pokemon.name.english ? (
+        <Confetti
+          width={window.innerWidth || "300"}
+          height={window.innerHeight || "200"}
+        />
+      ) : (
+        <>
+          <FallingEmojis emoji={"😥🐣"} />
+        </>
+      )}
+      {/* <Confetti
+        width={window.innerWidth || "300"}
+        height={window.innerHeight || "200"}
+      /> */}
+
       <div className={classes.root}>
         <Button variant="contained" onClick={handleSubmit}>
           Submit
@@ -92,7 +110,9 @@ export default function Fight(open) {
       </div>
       <Box display="flex" flexDirection="column">
         <h1>
-          {winner.name.english} won with this score: {winner.score}!
+          {winner.name.english === pokemon.name.english
+            ? `You won with a score of: ${winner.score}!`
+            : `${winner.name.english} won with a score of : ${winner.score}!`}
         </h1>
         <div className={styles.container}>
           <div ref={ref} className={styles.main}>
@@ -107,8 +127,11 @@ export default function Fight(open) {
         </div>
 
         <div>
-          <h1>You Lost!</h1>
-          <p>Score:{loser.score}</p>
+          <h1>
+            {loser.name.english === pokemon.name.english
+              ? `You lost with a score of: ${loser.score}!`
+              : `${loser.name.english} lost with a score of : ${loser.score}!`}
+          </h1>
         </div>
         <div className={styles.container}>
           <div ref={ref} className={styles.main}>

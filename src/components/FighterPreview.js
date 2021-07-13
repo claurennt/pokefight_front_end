@@ -106,7 +106,7 @@ export default function FighterPreview({ backendEntryPoint }) {
                     <img
                       src={playerPokemon.image}
                       alt={playerPokemon.title}
-                      width="60%"
+                      style={{ maxHeight: "140px" }}
                     />
                     <br />
                     <br />
