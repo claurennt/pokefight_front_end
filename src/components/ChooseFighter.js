@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   ImageList: {
-    width: 600,
+    width: 550,
     height: 800,
   },
   icon: {
