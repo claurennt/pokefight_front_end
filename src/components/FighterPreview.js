@@ -45,7 +45,6 @@ export default function FighterPreview({ backendEntryPoint }) {
         `${backendEntryPoint}/${randomOpponentId}`
       );
       setOpponentPokemon(retrievedOpponentPokemon.data);
-      console.log("Test");
     } catch (err) {
       console.log(err.message);
     }
@@ -54,10 +53,10 @@ export default function FighterPreview({ backendEntryPoint }) {
     fetchData();
   }, [fetchData]);
 
-  console.log({
-    previewPlayer: playerPokemon,
-    previewOpponent: opponentPokemon,
-  });
+  // console.log({
+  //   previewPlayer: playerPokemon,
+  //   previewOpponent: opponentPokemon,
+  // });
   const classes = useStyles();
   const handleBack = (e) => {
     history.push("/");
@@ -84,59 +83,60 @@ export default function FighterPreview({ backendEntryPoint }) {
         Link
       </Button> */}
       {!selectionConfirmed && (
-        <>
+        <div>
           <Button
             onClick={handleBack}
             variant="contained"
             color="primary"
-            style={{ "margin-left": "25px" }}
+            style={{ marginLeft: "25px" }}
             size="large"
           >
-            <BackspaceIcon style={{ "margin-right": "10px" }} />
+            <BackspaceIcon style={{ marginRight: "10px" }} />
             Back to overview
           </Button>
-        </>
+        </div>
       )}
       <div className={classes.root}>
         <Fade in="true">
           <Paper elevation={20}>
             {playerPokemon && (
-              <ul style={{ listStyleType: "none" }}>
-                <li>
-                  <h3>Name: {playerPokemon.name.english} </h3>
-                  <h4>Type: {playerPokemon.type[0]} </h4>
-                </li>
-                <li>
-                  {" "}
-                  <img
-                    src={playerPokemon.image}
-                    alt={playerPokemon.title}
-                    style={{ maxHeight: "140px", maxWidth: "150px" }}
-                  />
-                  <br />
-                  <br />
-                </li>
-                <li>Attack : {playerPokemon.base.Attack}</li>
-                <li>Defense : {playerPokemon.base.Defense}</li>
-                <li>Hit Points : {playerPokemon.base.HP}</li>
-                <li>Special Attack : {playerPokemon.base["Sp. Attack"]}</li>
-                <li>Special Defense : {playerPokemon.base["Sp. Attack"]}</li>
-                <li>Speed : {playerPokemon.base.Speed}</li>
-                <li>
-                  {" "}
-                  {!selectionConfirmed && (
-                    <Button
-                      onClick={handleClick}
-                      variant="contained"
-                      color="primary"
-                      style={{ "margin-top": "10px" }}
-                      size="large"
-                    >
-                      <img src={fight} alt="pokeball" width="75px" />
-                    </Button>
-                  )}
-                </li>
-              </ul>
+              <div>
+                <ul style={{ listStyleType: "none" }}>
+                  <li>
+                    <h3>Name: {playerPokemon.name.english} </h3>
+                    <h4>Type: {playerPokemon.type[0]} </h4>
+                  </li>
+                  <li>
+                    {" "}
+                    <img
+                      src={playerPokemon.image}
+                      alt={playerPokemon.title}
+                      style={{ maxHeight: "140px", maxWidth: "150px" }}
+                    />
+                    <br />
+                    <br />
+                  </li>
+                  <li>Attack : {playerPokemon.base.Attack}</li>
+                  <li>Defense : {playerPokemon.base.Defense}</li>
+                  <li>Hit Points : {playerPokemon.base.HP}</li>
+                  <li>Special Attack : {playerPokemon.base["Sp. Attack"]}</li>
+                  <li>Special Defense : {playerPokemon.base["Sp. Attack"]}</li>
+                  <li>Speed : {playerPokemon.base.Speed}</li>
+                  <li>
+                    {!selectionConfirmed && (
+                      <Button
+                        onClick={handleClick}
+                        variant="contained"
+                        color="primary"
+                        style={{ marginTop: "10px" }}
+                        size="large"
+                      >
+                        <img src={fight} alt="pokeball" width="75px" />
+                      </Button>
+                    )}
+                  </li>
+                </ul>
+              </div>
             )}
           </Paper>
         </Fade>
@@ -150,7 +150,6 @@ export default function FighterPreview({ backendEntryPoint }) {
                     <h4>Type: {opponentPokemon.type[0]} </h4>
                   </li>
                   <li>
-                    {" "}
                     <img
                       src={opponentPokemon.image}
                       alt={opponentPokemon.title}

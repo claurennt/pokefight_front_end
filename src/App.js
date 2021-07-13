@@ -73,26 +73,28 @@ function App() {
       <CssBaseline />
       <Container maxWidth="sm">
         <Navigation />
-        {isFetching && (
-          <div className="sweet-loading">
-            <FadeLoader
-              color="maroon"
-              loading={true}
-              css={override}
-              size={150}
+        <div>
+          {isFetching && (
+            <div className="sweet-loading">
+              <FadeLoader
+                color="maroon"
+                loading={true}
+                css={override}
+                size={150}
+              />
+            </div>
+          )}
+          {!isFetching && (
+            <Main
+              backendEntryPoint={backendEntryPoint}
+              pokemonList={pokemonList}
+              // setContenders={setContenders}
+              // contenders={contenders}
+              // determineWinner={determineWinner}
+              // fightResult={fightResult}
             />
-          </div>
-        )}
-        {!isFetching && (
-          <Main
-            backendEntryPoint={backendEntryPoint}
-            pokemonList={pokemonList}
-            // setContenders={setContenders}
-            // contenders={contenders}
-            // determineWinner={determineWinner}
-            // fightResult={fightResult}
-          ></Main>
-        )}
+          )}
+        </div>
       </Container>
     </Fragment>
   );

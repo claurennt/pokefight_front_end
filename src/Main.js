@@ -14,7 +14,7 @@ export default function Main({
   determineWinner,
 }) {
   return (
-    <main>
+    <>
       <Switch>
         <Route exact path="/">
           <ChooseFighter pokemonList={pokemonList} />
@@ -35,6 +35,6 @@ export default function Main({
 
         <Route path="/:id/:info">{/* <FighterDetailed /> */}</Route>
       </Switch>
-    </main>
+    </>
   );
 }
