@@ -5,9 +5,9 @@ import { ImageList, ImageListItem, ImageListItemBar } from "@material-ui/core";
 import { useState } from "react";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import IconButton from "@material-ui/core/IconButton";
-import Leaderboard from "./Leaderboard";
+import History from "./History";
 import PropTypes from "prop-types";
-
+import Leaderboard from "./Leaderboard";
 import Container from "@material-ui/core/Container";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -82,7 +82,8 @@ export default function ChooseFighter({ pokemonList }) {
           aria-label="simple tabs example"
         >
           <Tab label="Select Pokemon" {...a11yProps(0)} />
-          <Tab label="Show Leaderboard" {...a11yProps(1)} />
+          <Tab label="Show recent games" {...a11yProps(1)} />
+          <Tab label="Leaderboard" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -134,6 +135,11 @@ export default function ChooseFighter({ pokemonList }) {
         </ImageList>
       </TabPanel>
       <TabPanel value={value} index={1}>
+        <Container fixed>
+          <History />
+        </Container>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
         <Container fixed>
           <Leaderboard />
         </Container>
