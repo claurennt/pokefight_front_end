@@ -66,8 +66,11 @@ function a11yProps(index) {
   };
 }
 
-export default function ChooseFighter({ pokemonList }) {
-  // console.log(pokemonList);
+export default function ChooseFighter({
+  pokemonList,
+  leaderboard,
+  winnersList,
+}) {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -136,12 +139,12 @@ export default function ChooseFighter({ pokemonList }) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Container fixed>
-          <History />
+          <History leaderboard={leaderboard} />
         </Container>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Container fixed>
-          <Leaderboard />
+          <Leaderboard winnersList={winnersList} />
         </Container>
       </TabPanel>
     </div>

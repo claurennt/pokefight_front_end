@@ -1,6 +1,5 @@
 import React from "react";
-import axios from "axios";
-import { useState, useEffect, useCallback } from "react";
+
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -28,55 +27,14 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export default function Leaderboard() {
-  function createUniqueContender(winner) {
-    return winner;
-  }
+const useStyles = makeStyles({
+  table: {
+    minWidth: 500,
+  },
+});
 
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 500,
-    },
-  });
-  const [leaderboard, setLeaderboard] = useState();
-  const [statsState, setStatsState] = useState();
-  const [fightsState, setFightsState] = useState();
-  const [isFetching, setIsFetching] = useState(true);
-  const fightsOnePokemonWasInvolvedIn = (name) => {
-    return fightsState.filter((element) => element === name).length;
-  };
-  const fetchData = useCallback(async () => {
-    try {
-      const retrieveLeaderboard = await axios.get(
-        `https://pokefight-group4.herokuapp.com/pokemon/game/leaderboard `
-      );
-      let stats = {};
-      let fights = [];
-      let everyApperance = [];
-
-      //console.log(retrieveLeaderboard.data);
-      for (let fight of retrieveLeaderboard.data) {
-        fights.unshift(createUniqueContender(fight.winner));
-        stats[fight.winner] ? stats[fight.winner]++ : (stats[fight.winner] = 1);
-        everyApperance.push(fight.nameFighterOne, fight.nameFighterTwo);
-      }
-
-      let contenders = [...new Set(fights)].sort(function compareNumbers(a, b) {
-        return stats[b] - stats[a];
-      });
-
-      //console.log(fights.filter((element) => element === "Meltan").length);
-      setLeaderboard(contenders);
-      setStatsState(stats);
-      setFightsState(everyApperance);
-      setIsFetching(false);
-    } catch (err) {
-      console.log(err.message);
-    }
-  }, []);
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+export default function Leaderboard({ winnersList }) {
+  console.log(winnersList);
 
   const classes = useStyles();
 
@@ -86,26 +44,17 @@ export default function Leaderboard() {
         <TableHead>
           <TableRow>
             <StyledTableCell>Pokemon</StyledTableCell>
-            <StyledTableCell align="center">Victories</StyledTableCell>
-            <StyledTableCell align="right">Win Rate</StyledTableCell>
+            <StyledTableCell align="center">Won</StyledTableCell>
           </TableRow>
         </TableHead>
-        {!isFetching && (
+        {winnersList && (
           <TableBody>
-            {leaderboard.map((row, index) => (
+            {winnersList.map((w, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell component="th" scope="row">
-                  {row}
+                  {w[0]}
                 </StyledTableCell>
-                <StyledTableCell align="center">
-                  {statsState[row]}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {Math.round(
-                    (statsState[row] / fightsOnePokemonWasInvolvedIn(row)) * 100
-                  )}
-                  %
-                </StyledTableCell>
+                <StyledTableCell align="center">{w[1]}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

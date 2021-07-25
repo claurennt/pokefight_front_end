@@ -1,6 +1,4 @@
 import React from "react";
-import axios from "axios";
-import { useState, useEffect, useCallback } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -28,39 +26,12 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export default function History() {
-  function createData(nameFighterOne, nameFighterTwo, winner) {
-    return { nameFighterOne, nameFighterTwo, winner };
-  }
-
+export default function History({ leaderboard }) {
   const useStyles = makeStyles({
     table: {
       minWidth: 500,
     },
   });
-  const [leaderboard, setLeaderboard] = useState();
-  const [isFetching, setIsFetching] = useState(true);
-  const fetchData = useCallback(async () => {
-    try {
-      const retrieveLeaderboard = await axios.get(
-        `https://pokefight-group4.herokuapp.com/pokemon/game/leaderboard `
-      );
-      let rows = [];
-      //console.log(retrieveLeaderboard.data);
-      for (let fight of retrieveLeaderboard.data) {
-        rows.unshift(
-          createData(fight.nameFighterOne, fight.nameFighterTwo, fight.winner)
-        );
-      }
-      setLeaderboard(rows);
-      setIsFetching(false);
-    } catch (err) {
-      console.log(err.message);
-    }
-  }, []);
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
 
   const classes = useStyles();
   return (
@@ -73,17 +44,17 @@ export default function History() {
             <StyledTableCell align="right">Winner</StyledTableCell>
           </TableRow>
         </TableHead>
-        {!isFetching && (
+        {leaderboard && (
           <TableBody>
-            {leaderboard.map((row, index) => (
+            {leaderboard.map((el, index) => (
               <StyledTableRow key={index}>
                 <StyledTableCell component="th" scope="row">
-                  {row.nameFighterOne}
+                  {el.nameFighterOne}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {row.nameFighterTwo}
+                  {el.nameFighterTwo}
                 </StyledTableCell>
-                <StyledTableCell align="right">{row.winner}</StyledTableCell>
+                <StyledTableCell align="right">{el.winner}</StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

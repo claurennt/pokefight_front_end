@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 
@@ -24,40 +24,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FighterPreview({ backendEntryPoint }) {
+export default function FighterPreview({ pokemonList }) {
+  const classes = useStyles();
   let history = useHistory();
   const { id } = useParams();
-
+  console.log(pokemonList);
   const [playerPokemon, setPlayerPokemon] = useState();
   const [opponentPokemon, setOpponentPokemon] = useState();
   const [selectionConfirmed, setSelectionConfirmed] = useState(false);
   const [open, toggle] = useState(false);
-  // const { player, opponent } = contenders;
 
-  const fetchData = useCallback(async () => {
-    try {
-      const retrievedUserPokemon = await axios.get(
-        `${backendEntryPoint}/${id}`
-      );
-      setPlayerPokemon(retrievedUserPokemon.data);
-      let randomOpponentId = Math.floor(Math.random() * 500);
-      const retrievedOpponentPokemon = await axios.get(
-        `${backendEntryPoint}/${randomOpponentId}`
-      );
-      setOpponentPokemon(retrievedOpponentPokemon.data);
-    } catch (err) {
-      console.log(err.message);
+  // find pokemon like one selected
+  const p1 = pokemonList.find((p) => p.id === Number(id));
+
+  const p2 = (pokemonList, id) => {
+    let id2 = Math.floor(Math.random() * pokemonList.length);
+    if (id2 === Number(id)) {
+      id2 = Math.floor(Math.random() * pokemonList.length);
     }
-  }, [backendEntryPoint, id]);
+    return pokemonList[id2];
+  };
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    setPlayerPokemon(p1);
+    setOpponentPokemon(p2(pokemonList, id));
+  }, [p1, pokemonList, id]);
 
-  // console.log({
-  //   previewPlayer: playerPokemon,
-  //   previewOpponent: opponentPokemon,
-  // });
-  const classes = useStyles();
   const handleBack = (e) => {
     history.push("/");
   };
@@ -72,16 +63,11 @@ export default function FighterPreview({ backendEntryPoint }) {
         pokemon: playerPokemon,
         opponent: opponentPokemon,
         open: open,
-        random1: Math.random(),
-        random2: Math.random(),
       });
     }, 1250);
   };
   return (
     <div>
-      {/* <Button variant="contained" color="primary" href="#contained-buttons">
-        Link
-      </Button> */}
       {!selectionConfirmed && (
         <div>
           <Button
@@ -97,7 +83,7 @@ export default function FighterPreview({ backendEntryPoint }) {
         </div>
       )}
       <div className={classes.root}>
-        <Fade in="true">
+        <Fade in={true}>
           <Paper elevation={20}>
             {playerPokemon && (
               <div>
@@ -123,17 +109,15 @@ export default function FighterPreview({ backendEntryPoint }) {
                   <li>Special Defense : {playerPokemon.base["Sp. Attack"]}</li>
                   <li>Speed : {playerPokemon.base.Speed}</li>
                   <li>
-                    {!selectionConfirmed && (
-                      <Button
-                        onClick={handleClick}
-                        variant="contained"
-                        color="primary"
-                        style={{ marginTop: "10px" }}
-                        size="large"
-                      >
-                        <img src={fight} alt="pokeball" width="75px" />
-                      </Button>
-                    )}
+                    <Button
+                      onClick={handleClick}
+                      variant="contained"
+                      color="primary"
+                      style={{ marginTop: "10px" }}
+                      size="large"
+                    >
+                      <img src={fight} alt="pokeball" width="75px" />
+                    </Button>
                   </li>
                 </ul>
               </div>
@@ -141,7 +125,7 @@ export default function FighterPreview({ backendEntryPoint }) {
           </Paper>
         </Fade>
         {selectionConfirmed && (
-          <Fade in="true">
+          <Fade in={true}>
             <Paper elevation={20}>
               {opponentPokemon && (
                 <ul style={{ listStyleType: "none" }}>

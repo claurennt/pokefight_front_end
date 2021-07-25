@@ -5,35 +5,23 @@ import FighterPreview from "./components/FighterPreview";
 
 // import FighterDetailed from "./src/components/FighterDetailed";
 import Fight from "./components/Fight";
-export default function Main({
-  pokemonList,
-  backendEntryPoint,
-  contenders,
-  setContenders,
-  fightResult,
-  determineWinner,
-}) {
+export default function Main({ pokemonList, leaderboard, winnersList }) {
   return (
     <>
       <Switch>
         <Route exact path="/">
-          <ChooseFighter pokemonList={pokemonList} />
+          <ChooseFighter
+            pokemonList={pokemonList}
+            leaderboard={leaderboard}
+            winnersList={winnersList}
+          />
         </Route>
         <Route path="/fight/">
-          <Fight
-            contenders={contenders}
-            fightResult={fightResult}
-            determineWinner={determineWinner}
-          />
+          <Fight />
         </Route>
         <Route path="/:id">
-          <FighterPreview
-            backendEntryPoint={backendEntryPoint}
-            setContenders={setContenders}
-          />
+          <FighterPreview pokemonList={pokemonList} />
         </Route>
-
-        <Route path="/:id/:info">{/* <FighterDetailed /> */}</Route>
       </Switch>
     </>
   );

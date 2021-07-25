@@ -8,11 +8,9 @@ import App from "./App";
 import "@fontsource/roboto";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <App />
+  </Router>,
   document.getElementById("root")
 );
 

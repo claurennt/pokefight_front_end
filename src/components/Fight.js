@@ -30,16 +30,19 @@ export default function Fight(open) {
   const location = useLocation();
   //console.log(location);
   const { state } = location;
-  const { pokemon, opponent, random1, random2 } = state;
+
+  // data from history.push
+  const { pokemon, opponent } = state;
+  console.log(opponent);
   const [ref] = useMeasure();
 
-  const determineWinner = (pokemon, opponent, random1, random2) => {
+  const determineWinner = (pokemon, opponent) => {
     const powerPokemon = Math.floor(
       (pokemon.base.HP +
         pokemon.base.Attack +
         pokemon.base.Defense +
         pokemon.base.Speed) *
-        random1
+        Math.random()
     );
 
     const powerOpponent = Math.floor(
@@ -47,7 +50,7 @@ export default function Fight(open) {
         opponent.base.Attack +
         opponent.base.Defense +
         opponent.base.Speed) *
-        random2
+        Math.random()
     );
 
     const winnerPlayerScore = Math.max(powerPokemon, powerOpponent);
@@ -66,12 +69,7 @@ export default function Fight(open) {
     return { loser: loserPlayer, winner: winnerPlayer };
   };
 
-  const { loser, winner } = determineWinner(
-    pokemon,
-    opponent,
-    random1,
-    random2
-  );
+  const { loser, winner } = determineWinner(pokemon, opponent);
 
   const winnerWidth = useSpring({ width: open ? winner.score : 0 });
   const loserWidth = useSpring({ width: open ? loser.score : 0 });
@@ -114,13 +112,13 @@ export default function Fight(open) {
       /> */}
 
       <div className={classes.root}>
-        <Box display="flex" flexDirection="row">
+        <Box display="flex" flexDirection="row" justifyContent="center">
           <Button
             onClick={handleBack}
             variant="contained"
             color="primary"
             style={{ "margin-left": "25px" }}
-            size="large"
+            size="small"
           >
             <BackspaceIcon style={{ "margin-right": "10px" }} />
             Back to overview
@@ -130,7 +128,7 @@ export default function Fight(open) {
             onClick={handleSubmit}
             color="primary"
             style={{ "margin-left": "25px" }}
-            size="large"
+            size="small"
           >
             <CloudUploadIcon style={{ "margin-right": "10px" }} />
             Submit to leaderboard
@@ -138,40 +136,65 @@ export default function Fight(open) {
         </Box>
       </div>
       <Box display="flex" flexDirection="row">
-        <Box className={styles.container} display="flex" flexDirection="column">
-          <h1>
-            {winner.name.english === pokemon.name.english
-              ? `You won with a score of: ${winner.score}!`
-              : `${winner.name.english} won with a score of : ${winner.score}!`}
-          </h1>
+        <Box
+          className={styles.container}
+          display="flex"
+          flexDirection="column"
+          style={{ "margin-right": "55px" }}
+        >
+          <Box>
+            {" "}
+            <h2>
+              {winner.name.english === pokemon.name.english
+                ? `You won with a score of: ${winner.score}!`
+                : `${winner.name.english} won with a score of : ${winner.score}!`}
+            </h2>
+          </Box>
           <div ref={ref} className={styles.main}>
             <animated.div className={styles.fill} style={winnerWidth} />
             <animated.div className={styles.content}>
               {winnerWidth.width.to((x) => x.toFixed(0))}
             </animated.div>
           </div>
-
-          <img src={winner.image} alt="" width="300px" height="300px" />
+          <Box style={{ "margin-top": "25px" }}>
+            <img
+              src={winner.image}
+              alt="pokemon"
+              width="250px"
+              height="250px"
+            />
+          </Box>
         </Box>
 
-        <Box className={styles.container} display="flex" flexDirection="column">
-          <h1>
-            {loser.name.english === pokemon.name.english
-              ? `You lost with a score of: ${loser.score}!`
-              : `${loser.name.english} lost with a score of : ${loser.score}!`}
-          </h1>
-          <div ref={ref} className={styles.main}>
-            <animated.div className={styles.fill} style={loserWidth} />
-            <animated.div className={styles.content}>
-              {loserWidth.width.to((x) => x.toFixed(0))}
-            </animated.div>
-          </div>
-          <div>
-            <img src={loser.image} alt="" width="150px" height="150px" />
-          </div>
+        <Box
+          className={styles.container}
+          display="flex"
+          flexDirection="column"
+          style={{ "margin-left": "55px" }}
+        >
+          <Box>
+            <h2>
+              {loser.name.english === pokemon.name.english
+                ? `You lost with a score of: ${loser.score}!`
+                : `${loser.name.english} lost with a score of : ${loser.score}!`}
+            </h2>
+            <div ref={ref} className={styles.main}>
+              <animated.div className={styles.fill} style={loserWidth} />
+              <animated.div className={styles.content}>
+                {loserWidth.width.to((x) => x.toFixed(0))}
+              </animated.div>
+            </div>
+            <div style={{ "margin-top": "25px" }}>
+              <img
+                src={loser.image}
+                alt="pokemon"
+                width="250px"
+                height="250px"
+              />
+            </div>
+          </Box>
         </Box>
       </Box>
     </>
   );
-  /* <img src={winner.image} alt="winner pokemon image" />*/
 }
