@@ -24,35 +24,6 @@ const override = css`
 function App() {
   const [isFetching, setIsFetching] = useState(true);
   const [pokemonList, setPokemonList] = useState();
-  // const [contenders, setContenders] = useState();
-  // const [fightResult, setFightResult] = useState();
-
-  // const determineWinner = (contenders) => {
-  //   console.log(contenders);
-  //   const userPokemon = contenders[0];
-  //   const opponentPokemon = contenders[1];
-
-  //   let powerA =
-  //     (userPokemon.base.HP +
-  //       userPokemon.base.Attack +
-  //       userPokemon.base.Defense +
-  //       userPokemon.base.Speed) *
-  //     Math.random();
-  //   let powerB =
-  //     (opponentPokemon.base.HP +
-  //       opponentPokemon.base.Attack +
-  //       opponentPokemon.base.Defense +
-  //       opponentPokemon.base.Speed) *
-  //     Math.random();
-
-  //   if (powerA > powerB) {
-  //     return setFightResult("You won!");
-  //   } else if (powerB > powerA) {
-  //     return setFightResult("You lost!");
-  //   } else {
-  //     return null;
-  //   }
-  // };
 
   const fetchData = useCallback(async () => {
     try {
